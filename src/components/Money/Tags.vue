@@ -4,22 +4,22 @@
       <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li v-for="tag in dataSource" :key="tag"
+      <li v-for="tag in dataSource" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag }}
+          @click="toggle(tag)">{{tag.name}}
       </li>
     </ul>
   </div>
+
 </template>
+
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-
 @Component
 export default class Tags extends Vue {
   @Prop() readonly dataSource: string[] | undefined;
   selectedTags: string[] = [];
-
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
@@ -29,7 +29,6 @@ export default class Tags extends Vue {
     }
     this.$emit('update:value', this.selectedTags);
   }
-
   create() {
     const name = window.prompt('请输入标签名');
     if (name === '') {
@@ -50,32 +49,27 @@ export default class Tags extends Vue {
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
-
   > .current {
     display: flex;
     flex-wrap: wrap;
-
     > li {
       $bg: #d9d9d9;
       background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
-      border-radius: $h/2;
+      border-radius: 12px;
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
-
       &.selected {
         background: darken($bg, 50%);
         color: white;
       }
     }
   }
-
   > .new {
     padding-top: 16px;
-
     button {
       background: transparent;
       border: none;
