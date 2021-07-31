@@ -33,7 +33,7 @@ export default class Money extends Vue {
   };
 
   created() {
-    this.$store.commit('createRecord');
+    this.$store.commit('fetchRecords');
   }
 
   onUpdateNotes(value: string) {

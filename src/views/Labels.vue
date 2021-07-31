@@ -30,10 +30,8 @@ import {mixins} from 'vue-class-component';
 
 })
 export default class Labels extends mixins(TagHelper) {
-
   get tags() {
     return this.$store.state.tagList;
-
   }
 
   beforeCreate() {
