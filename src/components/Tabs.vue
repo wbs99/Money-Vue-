@@ -1,11 +1,10 @@
 <template>
-  <ul class="tabs" :class="{[classPrefix+'-tabs']:classPrefix}">
-    <li v-for="item in dataSource" :key="item.value"
-        class="tabs-item" :class="liClass(item)" @click="select(item)">{{ item.text }}
+  <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+    <li v-for="item in dataSource" :key="item.value" class="tabs-item"
+        :class="liClass(item)" @click="select(item)">{{ item.text }}
     </li>
   </ul>
 </template>
-
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
@@ -32,7 +31,6 @@ export default class Tabs extends Vue {
   }
 }
 </script>
-
 <style lang="scss" scoped>
 .tabs {
   background: #C4C4C4;
