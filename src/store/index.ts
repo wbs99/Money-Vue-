@@ -10,6 +10,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     recordList: [],
+    createRecordError: null,
     tagList: [],
     currentTag: undefined
   } as RootState,
@@ -62,6 +63,12 @@ const store = new Vuex.Store({
     },
     fetchTags(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length === 0) {
+        store.commit('createTag', '餐饮');
+        store.commit('createTag', '购物');
+        store.commit('createTag', '服饰');
+        store.commit('createTag', '交通');
+      }
     },
     createTag(state, name: string) {
       const names = state.tagList.map(item => item.name);
