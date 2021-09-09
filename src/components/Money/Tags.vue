@@ -2,14 +2,14 @@
   <div class="tags">
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        <Icon name="car"/>
+        <Icon name="car" class="icon"/>
         {{ tag.name }}
       </li>
       <li>
         <div class="new">
-          <button @click="createTag">新增标签</button>
+          <button @click="createTag">添加</button>
         </div>
       </li>
     </ul>
@@ -25,6 +25,7 @@ import TagHelper from '@/mixins/TagHelper';
 @Component
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
+
   get tagList() {
     return this.$store.state.tagList;
   }
@@ -33,7 +34,7 @@ export default class Tags extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
-  toggle(tag:string) {
+  toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -48,26 +49,29 @@ export default class Tags extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 .tags {
-  border: 1px solid blue;
-  max-height: 420px;
+  margin: 32px 0;
+  height: 30vh;
   overflow: auto;
+
   > .current {
-    border: 1px solid red;
+    overflow: auto;
     display: flex;
     flex-wrap: wrap;
-    padding: 16px 20px;
+
     > li {
-      border: 1px solid black;
-      width: 25%;
+      width: 33.333%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
       flex-direction: column;
       border-radius: 10px;
-      margin: 12px;
+      font-size: 12px;
+      font-weight: bolder;
+      //padding: 8px 12px;
       .icon {
-        width: 28px;
-        height: 28px;
+        width: 48px;
+        height: 48px;
       }
 
       &.selected {

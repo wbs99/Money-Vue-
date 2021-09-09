@@ -15,9 +15,9 @@
                 :value.sync="record.createdAt"
       />
     </div>
-    <Tags @update:value="record.tags=$event"/>
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
+    <Tags @update:value="record.tags=$event"/>
   </Layout>
 </template>
 <script lang="ts">
@@ -69,7 +69,13 @@ export default class Money extends Vue {
 }
 
 .notes {
-  background: #ffffff;
+  background-color: #ffffff;
+  padding: 8px 0;
+}
+
+.createdAt {
+  background-color: #ffffff;
+  border-bottom: 1px solid #a4c8c0;
   padding: 8px 0;
 }
 </style>

@@ -66,12 +66,9 @@ export default class NumberPad extends Vue {
 </script>
 <style scoped lang="scss">
 .numberPad {
-  min-height: 256px;
   background: #a4c8c0;
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 1;
 
   .output {
     font-size: 26px;
@@ -82,8 +79,6 @@ export default class NumberPad extends Vue {
     background: white;
     padding: 0 5px;
     margin: 4px 2px;
-    flex-shrink: 2;
-    min-height: 0;
   }
 
   .buttons {
@@ -91,10 +86,8 @@ export default class NumberPad extends Vue {
     flex-wrap: wrap;
     justify-content: space-around;
     flex-grow: 1;
-    padding: 5px;
+    padding: 4px;
     margin: 1px 3px;
-    flex-shrink: 2;
-    min-height: 0;
 
     > button {
       font-family: Helvetica Neue;
@@ -104,10 +97,10 @@ export default class NumberPad extends Vue {
       border-radius: 10px;
       background: white;
       flex-grow: 1;
+      padding: 8px;
       margin: 6px;
       font-size: 16px;
       flex-shrink: 1;
-      min-height: 0;
     }
   }
 }
