@@ -1,16 +1,17 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <Chart :options="x"/>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
+        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
           >
-            <span>{{tagString(item.tags)}}</span>
-            <span class="notes">{{item.notes}}</span>
-            <span>￥{{item.amount}} </span>
+            <span>{{ tagString(item.tags) }}</span>
+            <span class="notes">{{ item.notes }}</span>
+            <span>￥{{ item.amount }} </span>
           </li>
         </ol>
       </li>
@@ -27,13 +28,16 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+import Chart from '@/components/Money/Chart.vue';
+
 @Component({
-  components: {Tabs},
+  components: {Tabs, Chart},
 })
 export default class Statistics extends Vue {
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.map(item=>item.name).join('，');
+    return tags.length === 0 ? '无' : tags.map(item => item.name).join('，');
   }
+
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
@@ -49,9 +53,37 @@ export default class Statistics extends Vue {
       return day.format('YYYY年M月D日');
     }
   }
+
+  get x() {
+    return {
+      xAxis: {
+        type: 'category',
+        data: [
+          '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
+          '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
+          '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
+        ]
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [{
+        data: [
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320,
+          820, 932, 901, 934, 1290, 1330, 1320, 1, 2
+        ],
+        type: 'line'
+      }],
+      tooltip: {show: true}
+    };
+  }
+
   get recordList() {
     return (this.$store.state as RootState).recordList;
   }
+
   get groupedList() {
     const {recordList} = this;
     const newList = clone(recordList)
@@ -76,33 +108,40 @@ export default class Statistics extends Vue {
     });
     return result;
   }
+
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
+
   type = '-';
   recordTypeList = recordTypeList;
 }
 </script>
 
 <style scoped lang="scss">
-.noRecord{
+.noRecord {
   padding: 16px;
   text-align: center;
 }
+
 ::v-deep {
   .type-tabs-item {
     background: #C4C4C4;
+
     &.selected {
       background: white;
+
       &::after {
         display: none;
       }
     }
   }
+
   .interval-tabs-item {
     height: 48px;
   }
 }
+
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -110,13 +149,16 @@ export default class Statistics extends Vue {
   justify-content: space-between;
   align-content: center;
 }
+
 .title {
   @extend %item;
 }
+
 .record {
   background: white;
   @extend %item;
 }
+
 .notes {
   margin-right: auto;
   margin-left: 16px;
