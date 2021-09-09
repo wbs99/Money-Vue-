@@ -4,7 +4,7 @@
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"/>
     </div>
-    <ol v-if="groupedList.length>0">
+    <ol v-if="groupedList.length>0" class="fol">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
         <ol>
@@ -96,14 +96,15 @@ export default class Statistics extends Vue {
     return {
       grid: {
         left: 0,
-        right: 0
+        right: 0,
+
       },
       xAxis: {
         type: 'category',
         data: keys,
         axisTick: {alignWithLabel: true},
         axisLabel: {
-          formatter: function (value: string, index: number) {
+          formatter: function (value: string) {
             return value.substr(5);
           }
         }
@@ -166,6 +167,10 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+.fol{
+  height: 40vh;
+  overflow: auto;
+}
 .noRecord {
   padding: 16px;
   text-align: center;
@@ -173,10 +178,10 @@ export default class Statistics extends Vue {
 
 ::v-deep {
   .type-tabs-item {
-    background: #C4C4C4;
+    background: white;
 
     &.selected {
-      background: white;
+      background: #cde1d9;
 
       &::after {
         display: none;
@@ -213,6 +218,7 @@ export default class Statistics extends Vue {
 }
 
 .chart {
+  height: 45vh;
   width: 430%;
 
   &-wrapper {
