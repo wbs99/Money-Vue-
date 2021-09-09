@@ -2,7 +2,7 @@
   <Layout>
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
     <div class="chart-wrapper" ref="chartWrapper">
-      <Chart class="chart" :options="x"/>
+      <Chart class="chart" :options="chartOptions"/>
     </div>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
@@ -63,33 +63,36 @@ export default class Statistics extends Vue {
     }
   }
 
-  get y(){
+  get keyValueList() {
     const today = new Date();
     const array = [];
     // 获取 30 个日期，每个日期就是今天减去 i 天
     // 再找到这一天对应的 amount
     for (let i = 0; i <= 29; i++) {
       const dateString = day(today).subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.groupedList, {
+        title: dateString
+      });
       array.push({
-        date: dateString,
-        value: _.find(this.recordList, {createdAt: dateString})?.amount
+        key: dateString,
+        value: found ? found.total : 0
       });
     }
-    array.sort((a,b)=>{
-      if(a.date>b.date){
-        return 1
-      }else if(a.date===b.date){
-        return 0
-      }else{
-        return -1
+    array.sort((a, b) => {
+      if (a.key > b.key) {
+        return 1;
+      } else if (a.key === b.key) {
+        return 0;
+      } else {
+        return -1;
       }
-    })
-    return array
+    });
+    return array;
   }
 
-  get x() {
-    const keys = this.y.map(item=>item.date)
-    const values = this.y.map(item=>item.value)
+  get chartOptions() {
+    const keys = this.keyValueList.map(item => item.key);
+    const values = this.keyValueList.map(item => item.value);
     return {
       grid: {
         left: 0,
@@ -99,9 +102,9 @@ export default class Statistics extends Vue {
         type: 'category',
         data: keys,
         axisTick: {alignWithLabel: true},
-        axisLabel:{
-          formatter: function(value:string,index:number){
-            return value.substr(5)
+        axisLabel: {
+          formatter: function (value: string, index: number) {
+            return value.substr(5);
           }
         }
       },
