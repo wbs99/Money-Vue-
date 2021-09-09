@@ -20,13 +20,12 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 
 nav {
-  @extend %outerShadow;
   display: flex;
   flex-direction: row;
   font-size: 12px;
+  background: #fbebc5;
 
   > .item {
     padding: 2px 0;
@@ -43,7 +42,7 @@ nav {
   }
 
   > .item.selected {
-    color: $color-hignlight;
+    color: #43607e;
   }
 }
 </style>

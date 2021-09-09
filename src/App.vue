@@ -15,6 +15,6 @@ body {
   font-family: $font-hei;
   font-size: 16px;
   line-height: 1.5;
-  background: #F5F5F5;
+  background: #f6f7f2;
 }
 </style>

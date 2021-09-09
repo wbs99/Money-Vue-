@@ -1,12 +1,16 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div>
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag.name }}
+          @click="toggle(tag)">
+        <Icon name="car"/>
+        {{ tag.name }}
+      </li>
+      <li>
+        <div class="new">
+          <button @click="createTag">新增标签</button>
+        </div>
       </li>
     </ul>
   </div>
@@ -21,7 +25,6 @@ import TagHelper from '@/mixins/TagHelper';
 @Component
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
-
   get tagList() {
     return this.$store.state.tagList;
   }
@@ -30,9 +33,7 @@ export default class Tags extends mixins(TagHelper) {
     this.$store.commit('fetchTags');
   }
 
-  toggle(tag: string) {
-
-
+  toggle(tag:string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -47,31 +48,30 @@ export default class Tags extends mixins(TagHelper) {
 
 <style lang="scss" scoped>
 .tags {
-  background: white;
-  font-size: 14px;
-  padding: 16px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column-reverse;
-
+  border: 1px solid blue;
+  max-height: 420px;
+  overflow: auto;
   > .current {
+    border: 1px solid red;
     display: flex;
     flex-wrap: wrap;
-
+    padding: 16px 20px;
     > li {
-      $bg: #d9d9d9;
-      background: $bg;
-      $h: 24px;
-      height: $h;
-      line-height: $h;
-      border-radius: 12px;
-      padding: 0 16px;
-      margin-right: 12px;
-      margin-top: 4px;
+      border: 1px solid black;
+      width: 25%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: 10px;
+      margin: 12px;
+      .icon {
+        width: 28px;
+        height: 28px;
+      }
 
       &.selected {
-        background: darken($bg, 50%);
-        color: white;
+        background: #cde1d9;
       }
     }
   }
