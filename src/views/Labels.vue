@@ -46,7 +46,7 @@ export default class Labels extends mixins(TagHelper) {
 .tags {
   height: 70vh;
   overflow: auto;
-  background: white;
+  background: #f6f7f2;
   font-size: 16px;
   padding-left: 16px;
 

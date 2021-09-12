@@ -25,3 +25,13 @@ window.onload = function () {
   }, 0);
 };
 
+if (document.documentElement.clientWidth > 500) {
+  const img = document.createElement('img');
+  img.src = '/qrrcode.png';
+  img.style.position = 'fixed';
+  img.style.left = '50%';
+  img.style.top = '50%';
+  img.style.transform = 'translate(-50%,-50%)';
+  img.style.boxShadow = ' 0 0 10px rgba(0,0,0,.25)';
+  document.body.appendChild(img);
+}
