@@ -19,7 +19,7 @@
       </li>
     </ol>
     <div v-else class="noRecord">
-      目前没有相关记录
+      <img src="https://s1.hdslb.com/bfs/static/history-record/img/nodata.png" alt="目前没有相关记录">
     </div>
   </Layout>
 </template>

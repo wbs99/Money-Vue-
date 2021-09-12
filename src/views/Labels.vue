@@ -4,8 +4,7 @@
       <router-link class="tag"
                    v-for="tag in tags" :key="tag.id"
                    :to="`/labels/edit/${tag.id}`">
-        <Icon name="car"/>
-        <span class="tagLeft">{{ tag.name }}</span>
+        <span>{{ tag.name }}</span>
         <Icon name="right"/>
       </router-link>
     </div>
@@ -57,13 +56,8 @@ export default class Labels extends mixins(TagHelper) {
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
-    > .tagLeft{
-      border:1px solid red;
-      transform: translateX(-120px);
-    }
 
     svg {
-      border:1px solid green;
       width: 24px;
       height: 24px;
       color: #666;

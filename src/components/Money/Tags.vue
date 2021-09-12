@@ -4,13 +4,12 @@
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected:selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        <Icon name="car" class="icon"/>
         {{ tag.name }}
       </li>
       <li>
-        <div class="new">
-          <button @click="createTag">添加</button>
-        </div>
+          <button @click="createTag">
+            <Icon name="add" class="icon"/>
+          </button>
       </li>
     </ul>
   </div>
@@ -59,20 +58,24 @@ export default class Tags extends mixins(TagHelper) {
     flex-wrap: wrap;
 
     > li {
-      width: 33.333%;
+      border: 1px solid #cde1d9;
+      width: 20%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-wrap: wrap;
       flex-direction: column;
-      border-radius: 10px;
-      font-size: 12px;
+      font-size: 16px;
       font-weight: bolder;
+      padding:8px 0;
+      margin-bottom: 16px;
+      //margin-right: 2px;
+      border-radius: 1em;
       //padding: 8px 12px;
-      .icon {
-        width: 48px;
-        height: 48px;
-      }
+      //.icon {
+      //  width: 48px;
+      //  height: 48px;
+      //}
 
       &.selected {
         background: #cde1d9;
@@ -80,16 +83,16 @@ export default class Tags extends mixins(TagHelper) {
     }
   }
 
-  > .new {
-    padding-top: 16px;
-
     button {
       background: transparent;
       border: none;
-      color: #999;
-      border-bottom: 1px solid;
       padding: 0 4px;
+      display: flex;
+      flex-direction: column;
+      >.icon{
+        margin:0 auto;
+      }
     }
-  }
+
 }
 </style>
